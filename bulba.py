@@ -9,30 +9,33 @@ second_window = None
 third_window = None
 forth_window = None
 
-def is_p(n):
-    if n < 2:
-        return False
-    for i in range(2, int(n ** 0.5) + 1):
-        if n % i == 0:
-            return False
-    return True
-
-def next_p(start):
-    num = start + 1
-    while not is_p(num):
-        num += 1
-    return num
-
-def on_click():
-    global click_count, current
-    click_count += 1
-    current = next_p(current)
-    button.config(text=f"{click_count}: {current}")
+click_count = 0
+current = 1
 
 def toggle_first_window():        # First window (Prime number button)
     global first_window
     if first_window is None or not first_window.winfo_exists():
-        # Create first window
+
+        def is_p(n):
+            if n < 2:
+                return False
+            for i in range(2, int(n ** 0.5) + 1):
+                if n % i == 0:
+                    return False
+            return True
+
+        def next_p(start):
+            num = start + 1
+            while not is_p(num):
+                num += 1
+            return num
+
+        def on_click():
+            global click_count, current
+            click_count += 1
+            current = next_p(current)
+            button.config(text=f"{click_count}: {current}")
+
         first_window = tk.Toplevel(root)
         first_window.geometry('400x260+550+300')
         first_window.overrideredirect(True)
@@ -40,7 +43,6 @@ def toggle_first_window():        # First window (Prime number button)
         button.place(anchor="center", x=200, y=50)
         btn_open_first.config(text="Close First Window")
     else:
-        # Close first window
         first_window.destroy()
         first_window = None
         btn_open_first.config(text="Open First Window")
@@ -59,7 +61,6 @@ def toggle_second_window():        # Second window (Text and Entry)
         t3.place(anchor="center", x=200, y=150)
         btn_open_second.config(text="Close Second Window")
     else:
-        # Close first window
         second_window.destroy()
         second_window = None
         btn_open_second.config(text="Open Second Window")
