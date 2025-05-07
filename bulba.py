@@ -1,7 +1,7 @@
 import tkinter as tk
 
 root = tk.Tk()
-root.geometry('400x260+100+300')
+root.geometry('400x260+200+300')
 root.overrideredirect(True)
 
 first_window = None
@@ -39,7 +39,7 @@ def toggle_first_window():        # First window (Prime number button)
         click_count = 0
         current = 1
         first_window = tk.Toplevel(root)
-        first_window.geometry('400x260+550+300')
+        first_window.geometry('400x260+650+300')
         first_window.overrideredirect(True)
         button = tk.Button(first_window, text="0: 1", command=on_click, width="10", height="1", bg="lightgrey", fg="black", font=("Arial", 30))
         button.place(anchor="center", x=200, y=125)
@@ -55,7 +55,7 @@ def toggle_second_window():        # Second window (Text and Entry)
     global second_window
     if second_window is None or not second_window.winfo_exists():
         second_window = tk.Toplevel(root)
-        second_window.geometry('400x260+550+300')
+        second_window.geometry('400x260+650+300')
         second_window.overrideredirect(True)
         t1 = tk.Text(second_window, height=5, width=30, bg="lightgray", fg="black", font=("Arial", 10))
         t1.place(anchor="center", x=200, y=50)
@@ -88,6 +88,7 @@ def toggle_second_window():        # Second window (Text and Entry)
 
 def toggle_third_window():        # Third window (Checkbuttons)
     def update_text():
+        t2.config(state="normal")
         t2.delete(1.0, tk.END)
         active_letters = []
         if var_a.get():
@@ -101,14 +102,16 @@ def toggle_third_window():        # Third window (Checkbuttons)
         if var_e.get():
             active_letters.append("E")
         t2.insert(tk.END, ''.join(active_letters))
+        t2.config(state="disabled")
 
     global third_window
     if third_window is None or not third_window.winfo_exists():
         third_window = tk.Toplevel(root)
-        third_window.geometry('400x260+550+300')
+        third_window.geometry('400x260+650+300')
         third_window.overrideredirect(True)
         t2 = tk.Text(third_window, height=1, width=7, font=("Arial", 41), bg="lightgrey")
         t2.place(anchor="center", x=200, y=70)
+        t2.config(state="disabled")
         var_a = tk.IntVar()
         var_b = tk.IntVar()
         var_c = tk.IntVar()
@@ -135,7 +138,7 @@ def toggle_forth_window():        # Forth window (Raadiobuttons)
     if forth_window is None or not forth_window.winfo_exists():
         forth_window = tk.Toplevel(root)
         forth_window.overrideredirect(True)
-        forth_window.geometry('400x260+550+300')
+        forth_window.geometry('400x260+650+300')
         label = tk.Label(forth_window, text="Выбери последовательность:", font=("Arial", 14))
         label.pack(pady=5)
         var_seq = tk.StringVar(value="Фибоначи")
