@@ -2,21 +2,20 @@ import tkinter as tk
 
 root = tk.Tk()
 root.geometry('400x260+200+300')
-root.overrideredirect(True)
+root.attributes("-topmost", True)
 
 first_window = None
 second_window = None
 third_window = None
 forth_window = None
-
-click_count = 0
-current = 1
+width = 400
+height = 260
 
 def toggle_first_window():        # First window (Prime number button)
     global first_window, click_count, current
     if first_window is None or not first_window.winfo_exists():
 
-        def is_p(n):
+        def is_prime(n):
             if n < 2:
                 return False
             for i in range(2, int(n ** 0.5) + 1):
@@ -24,22 +23,26 @@ def toggle_first_window():        # First window (Prime number button)
                     return False
             return True
 
-        def next_p(start):
+        def next_prime(start):
             num = start + 1
-            while not is_p(num):
+            while not is_prime(num):
                 num += 1
             return num
 
         def on_click():
             global click_count, current
             click_count += 1
-            current = next_p(current)
+            current = next_prime(current)
             button.config(text=f"{click_count}: {current}")
 
         click_count = 0
         current = 1
         first_window = tk.Toplevel(root)
-        first_window.geometry('400x260+650+300')
+        root_x = root.winfo_x()
+        root_y = root.winfo_y()
+        first_x = root_x + root.winfo_width() + 50
+        first_y = root_y + 31
+        first_window.geometry(f"{width}x{height}+{first_x}+{first_y}")
         first_window.overrideredirect(True)
         button = tk.Button(first_window, text="0: 1", command=on_click, width="10", height="1", bg="lightgrey", fg="black", font=("Arial", 30))
         button.place(anchor="center", x=200, y=125)
@@ -55,7 +58,11 @@ def toggle_second_window():        # Second window (Text and Entry)
     global second_window
     if second_window is None or not second_window.winfo_exists():
         second_window = tk.Toplevel(root)
-        second_window.geometry('400x260+650+300')
+        root_x = root.winfo_x()
+        root_y = root.winfo_y()
+        second_x = root_x + root.winfo_width() + 50
+        second_y = root_y + 31
+        second_window.geometry(f"{width}x{height}+{second_x}+{second_y}")
         second_window.overrideredirect(True)
         t1 = tk.Text(second_window, height=5, width=30, bg="lightgray", fg="black", font=("Arial", 10))
         t1.place(anchor="center", x=200, y=50)
@@ -107,7 +114,11 @@ def toggle_third_window():        # Third window (Checkbuttons)
     global third_window
     if third_window is None or not third_window.winfo_exists():
         third_window = tk.Toplevel(root)
-        third_window.geometry('400x260+650+300')
+        root_x = root.winfo_x()
+        root_y = root.winfo_y()
+        third_x = root_x + root.winfo_width() + 50
+        third_y = root_y + 31
+        third_window.geometry(f"{width}x{height}+{third_x}+{third_y}")
         third_window.overrideredirect(True)
         t2 = tk.Text(third_window, height=1, width=7, font=("Arial", 41), bg="lightgrey")
         t2.place(anchor="center", x=200, y=70)
@@ -138,7 +149,11 @@ def toggle_forth_window():        # Forth window (Raadiobuttons)
     if forth_window is None or not forth_window.winfo_exists():
         forth_window = tk.Toplevel(root)
         forth_window.overrideredirect(True)
-        forth_window.geometry('400x260+650+300')
+        root_x = root.winfo_x()
+        root_y = root.winfo_y()
+        forth_x = root_x + root.winfo_width() + 50
+        forth_y = root_y + 31
+        forth_window.geometry(f"{width}x{height}+{forth_x}+{forth_y}")
         label = tk.Label(forth_window, text="Выбери последовательность:", font=("Arial", 14))
         label.pack(pady=5)
         var_seq = tk.StringVar(value="Фибоначи")
